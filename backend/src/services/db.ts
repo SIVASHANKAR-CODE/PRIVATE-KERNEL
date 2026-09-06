@@ -1,35 +1,56 @@
 import mongoose from 'mongoose';
 import { config } from '../config/index.js';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 
-let memoryServer: MongoMemoryServer | null = null;
+/**
+ * Injects the database name into the Atlas URI if it is missing.
+ * Atlas URIs without a dbName default to "test" — we always want "privatekernel".
+ */
+function ensureDbName(uri: string, dbName = 'privatekernel'): string {
+  try {
+    const url = new URL(uri);
+    // If pathname is empty or just "/" there is no dbName — inject it
+    if (!url.pathname || url.pathname === '/') {
+      url.pathname = `/${dbName}`;
+      return url.toString();
+    }
+    return uri;
+  } catch {
+    return uri; // not a valid URL — let Mongoose handle it
+  }
+}
 
 export const connectDB = async (): Promise<string> => {
-  try {
-    // Attempt connecting to the configured URI with a 2-second timeout
-    await mongoose.connect(config.mongoUri, {
-      serverSelectionTimeoutMS: 2000,
-    });
-    console.log(`Connected to MongoDB at ${config.mongoUri}`);
-    return config.mongoUri;
-  } catch (err) {
-    console.warn(`Could not connect to external MongoDB at ${config.mongoUri}. Starting embedded in-memory MongoDB...`);
-    try {
-      memoryServer = await MongoMemoryServer.create();
-      const memUri = memoryServer.getUri();
-      await mongoose.connect(memUri);
-      console.log(`Connected to embedded MongoDB at ${memUri}`);
-      return memUri;
-    } catch (memErr) {
-      console.error('Failed to start embedded MongoDB:', memErr);
-      throw memErr;
-    }
+  if (!config.mongoUri) {
+    throw new Error('MONGODB_URI environment variable is not configured');
   }
+
+  const uri = ensureDbName(config.mongoUri);
+
+  // Mongoose connection event handlers for visibility
+  mongoose.connection.on('connected', () =>
+    console.log('[DB] MongoDB Atlas connection established')
+  );
+  mongoose.connection.on('disconnected', () =>
+    console.warn('[DB] MongoDB Atlas disconnected — will attempt reconnect')
+  );
+  mongoose.connection.on('reconnected', () =>
+    console.log('[DB] MongoDB Atlas reconnected')
+  );
+  mongoose.connection.on('error', (err) =>
+    console.error('[DB] MongoDB connection error:', err.message)
+  );
+
+  await mongoose.connect(uri, {
+    serverSelectionTimeoutMS: 10000,
+    // Keep the connection alive — important for long-running Atlas free-tier clusters
+    heartbeatFrequencyMS: 10000,
+  });
+
+  console.log('[DB] Connected to MongoDB Atlas');
+  return uri;
 };
 
 export const closeDB = async (): Promise<void> => {
   await mongoose.disconnect();
-  if (memoryServer) {
-    await memoryServer.stop();
-  }
+  console.log('[DB] MongoDB connection closed');
 };
