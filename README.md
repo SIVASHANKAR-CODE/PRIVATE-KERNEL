@@ -10,7 +10,7 @@ A production-grade **Progressive Web App (PWA)** for private, real-time messagin
 
 | Member | Role / Focus | Profile |
 |--------|---------------|---------|
-| Sivashankar s | Developer | [@SIVASHANKAR-CODE](https://github.com/SIVASHANKAR-CODE) |
+| Sivashankar S | Developer | [@SIVASHANKAR-CODE](https://github.com/SIVASHANKAR-CODE) |
 | Yogavarshni R | UI/UX Designer | [@yogavarshni-Max](https://github.com/yogavarshni-Max) |
 | Rithigasri J | Researcher | [@rrithigasrij-star](https://github.com/rrithigasrij-star) |
 
