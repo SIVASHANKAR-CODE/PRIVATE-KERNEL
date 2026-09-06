@@ -1,636 +1,86 @@
-🛡️ PRIVATE KERNEL CONNECT
+# 🔒 PRIVATE KERNEL — Secure Real-Time Messaging PWA
 
-Private Team Communication & Collaboration Platform
+A production-grade **Progressive Web App (PWA)** for private, real-time messaging — featuring end-to-end conversation flows, group chats, voice/video call UI, notifications, and a full account-security layer.
 
-A secure, real-time internal communication workspace built for PRIVATE KERNEL.
+> Built by **Sivashankar** — [@SIVASHANKAR-CODE](https://github.com/SIVASHANKAR-CODE)
 
-Designed for controlled team communication with direct messaging, group conversations, file sharing, notifications, user accounts, and realtime communication — with a clean, professional product experience.
+---
 
-🏢 About PRIVATE KERNEL
+## 👥 Team
 
-PRIVATE KERNEL CONNECT is the internal communication platform of PRIVATE KERNEL.
+| Member | Role / Focus | Profile |
+|--------|---------------|---------|
+| Sivashankar | Developer | [@SIVASHANKAR-CODE](https://github.com/SIVASHANKAR-CODE) |
+| Yogavarshni R | UI/UX Designer | [@yogavarshni-Max](https://github.com/yogavarshni-Max) |
+| Rithigasri J | Researcher | [@rrithigasrij-star](https://github.com/rrithigasrij-star) |
 
-The product is designed around one core principle:
+---
 
-Private communication. Real users. Real data. Professional experience.
+## ✨ Key Features
 
-The application is intended to provide a focused workspace where authorized team members can communicate, share files, manage conversations, and stay connected without unnecessary public-social features.
+### 💬 Real-Time Chat
+- One-to-one and group conversations powered by **Socket.IO**
+- Message list with bubbles, media, voice notes, and starred messages
+- Typing indicators, read receipts, and online/last-seen presence
+- In-app notifications drawer
 
-👥 Team
+### 📞 Calls
+- Voice/video call modal built into the chat experience
 
-Member
+### 👥 Groups
+- Group creation, group details, and member management
 
-Role
+### 🔐 Account Security
+- JWT-based authentication with hashed passwords (bcrypt)
+- Email verification, forgot-password, and reset-password flows
+- Rate-limited auth endpoints, Helmet security headers, centralized audit logging
+- User-level privacy settings (last seen, profile photo, read receipts, typing indicator)
 
-GitHub
+### ⚙️ Settings & Media
+- Per-user theme (light/dark/system), notification, and privacy preferences
+- File/avatar uploads with pluggable storage (local filesystem or S3-compatible)
+- Block/unblock users
 
-SIVASHANKAR S
+### 📱 Progressive Web App
+- Installable on desktop and mobile with an offline-ready service worker
 
-Project Owner / Lead Developer
+---
 
-https://github.com/SIVASHANKAR-CODE/
+## 🛠️ Tech Stack
 
-Yogavarshni R
+| Layer      | Technology                                              |
+|------------|----------------------------------------------------------|
+| Frontend   | React 18 + TypeScript + Vite, Tailwind CSS, React Router |
+| Real-time  | Socket.IO (client + server)                              |
+| Backend    | Node.js + Express + TypeScript                           |
+| Database   | MongoDB (Mongoose ODM)                                   |
+| Auth       | JWT + bcrypt password hashing                             |
+| Validation | Zod                                                       |
+| Storage    | Local filesystem (default) or any S3-compatible provider |
+| Email      | Nodemailer (SMTP) for verification & password reset      |
+| PWA        | Web App Manifest + Service Worker (vite-plugin-pwa)       |
 
-UI/UX Designer
+---
 
-yogavarshni-Max
+## 🚀 Quick Start
 
-Rithigasri J
+### Prerequisites
+- Node.js 18+
+- A MongoDB connection (local or [MongoDB Atlas](https://www.mongodb.com/atlas) free tier)
 
-Researcher
-
-rrithigasrij-star
-
-Team Responsibilities
-
-Role
-
-Primary Responsibility
-
-Project Owner / Lead Developer
-
-Product direction, architecture, backend, authentication, database, security, integration and deployment
-
-UI/UX Designer
-
-User experience, visual system, responsive layouts, interaction patterns and design consistency
-
-Researcher
-
-Product research, feature research, usability references, documentation and technical research
-
-✨ Core Features
-
-💬 Real-Time Messaging
-
-Feature
-
-Status / Direction
-
-Direct messaging
-
-✅
-
-Group conversations
-
-✅
-
-Realtime communication
-
-✅ Socket.IO
-
-Message history
-
-✅ MongoDB
-
-Message replies
-
-🔧 Extensible
-
-Message editing
-
-🔧 Extensible
-
-Message deletion
-
-🔧 Extensible
-
-Reactions
-
-🔧 Extensible
-
-Delivery/read state
-
-🔧 Extensible
-
-Typing indicators
-
-🔧 Extensible
-
-The messaging architecture is designed around authenticated users and conversation membership rather than hardcoded or demo content.
-
-👥 Team & User Management
-
-User registration and authentication
-
-User profile management
-
-User search
-
-Direct conversation creation
-
-Group conversations
-
-Conversation membership
-
-Session management
-
-Blocked-user support
-
-Notification support
-
-Audit logging for important account/security events
-
-All user-facing communication data should come from the database.
-
-No fake users. No fake messages. No fake online status.
-
-📎 Files & Media
-
-PRIVATE KERNEL CONNECT supports an attachment architecture for:
-
-Images
-
-Documents
-
-General files
-
-Message attachments
-
-Profile-related media
-
-Storage is abstracted so the application can use local storage during development and an S3-compatible provider in production.
-
-User
-  │
-  ▼
-Upload API
-  │
-  ▼
-Storage Service
-  ├── Local filesystem (development)
-  └── S3-compatible storage (production)
-          │
-          ▼
-      Attachment reference
-          │
-          ▼
-        MongoDB
-
-🔐 Authentication & Security
-
-Security is treated as a core product requirement rather than only a UI feature.
-
-User
- │
- ▼
-Login / Registration
- │
- ▼
-Password verification
- │
- ▼
-JWT authentication
- │
- ▼
-Refresh-token session
- │
- ▼
-Protected application
-
-Security technologies currently used by the project include:
-
-JWT authentication
-
-bcrypt password hashing
-
-Refresh-token based sessions
-
-Zod request validation
-
-Helmet security headers
-
-Express rate limiting
-
-CORS configuration
-
-MongoDB/Mongoose
-
-Audit logging
-
-Protected API middleware
-
-Security Rules
-
-Never store plaintext passwords
-
-Never commit .env
-
-Never hardcode secrets
-
-Never expose database credentials
-
-Never trust frontend-only authorization
-
-Validate protected operations on the server
-
-Keep private uploads protected
-
-Revoke sessions when security-sensitive actions require it
-
-Do not log secrets or passwords
-
-🔔 Notifications
-
-The notification system is designed for:
-
-New messages
-
-Account/security events
-
-Application notifications
-
-Read/unread notification state
-
-Realtime notification delivery
-
-Notifications must represent real application events.
-
-No fake notification counts or fake activity.
-
-📱 Progressive Web App
-
-PRIVATE KERNEL CONNECT is designed as a Progressive Web App (PWA).
-
-PWA Goals
-
-Installable on desktop
-
-Installable on mobile
-
-Responsive interface
-
-Application shell caching
-
-Service-worker support
-
-Fast repeat visits
-
-Mobile-friendly navigation
-
-The PWA layer should never cache sensitive private data in an unsafe way.
-
-🧭 Product Structure
-
-PRIVATE KERNEL CONNECT
-│
-├── 🏠 Home
-├── 💬 Messages
-│   ├── Direct Messages
-│   └── Groups
-│
-├── 👥 Team Members
-├── 📢 Channels
-├── 📁 Files
-├── 📞 Calls
-├── 🔎 Search
-├── 🔔 Notifications
-│
-├── 👤 Profile
-├── ⚙️ Settings
-│
-└── 🔐 Administration
-    ├── Dashboard
-    ├── Team Management
-    ├── Roles & Permissions
-    ├── Security
-    └── Audit Logs
-
-The product should remain focused on private communication. Unapproved features should not be added simply because another communication platform contains them.
-
-🎨 UI / UX Direction
-
-The interface should feel like a real private-company product, not a generic AI-generated dashboard.
-
-Design Principles
-
-Professional
-     ↓
-Minimal
-     ↓
-Clear hierarchy
-     ↓
-Consistent spacing
-     ↓
-Useful interactions
-     ↓
-Fast and responsive
-
-Visual Direction
-
-Quietly premium
-
-Professional typography
-
-Strong information hierarchy
-
-Consistent spacing system
-
-Subtle borders
-
-Restrained shadows
-
-Clear states
-
-Accessible contrast
-
-Responsive desktop/mobile layouts
-
-Purposeful micro-interactions
-
-Clean empty states
-
-Avoid
-
-❌ Excessive neon
-
-❌ Huge gradients
-
-❌ Random decorative blobs
-
-❌ Excessive glassmorphism
-
-❌ Giant rounded cards everywhere
-
-❌ Heavy shadows
-
-❌ Fake dashboard statistics
-
-❌ Random AI avatars
-
-❌ Unnecessary animations
-
-❌ Generic “AI SaaS” appearance
-
-❌ Copying WhatsApp branding or assets
-
-The usability of modern communication applications can be used as inspiration, but PRIVATE KERNEL CONNECT must maintain its own visual identity.
-
-🏗️ System Architecture
-
-                    PRIVATE KERNEL CONNECT
-                              │
-                ┌─────────────┴─────────────┐
-                │                           │
-           FRONTEND                     BACKEND
-          React + Vite                 Node + Express
-                │                           │
-                │                     ┌─────┴─────┐
-                │                     │           │
-                │                  REST API    Socket.IO
-                │                     │           │
-                └──────────────┬──────┴───────────┘
-                               │
-                            MongoDB
-                               │
-                      Persistent application
-                              data
-
-🧰 Tech Stack
-
-Layer
-
-Technology
-
-Frontend
-
-React 18
-
-Language
-
-TypeScript
-
-Build Tool
-
-Vite
-
-Styling
-
-Tailwind CSS
-
-Routing
-
-React Router
-
-Realtime Client
-
-Socket.IO Client
-
-PWA
-
-vite-plugin-pwa
-
-Backend
-
-Node.js
-
-API
-
-Express
-
-Realtime Server
-
-Socket.IO
-
-Database
-
-MongoDB
-
-ODM
-
-Mongoose
-
-Authentication
-
-JWT
-
-Password Hashing
-
-bcrypt
-
-Validation
-
-Zod
-
-Security Headers
-
-Helmet
-
-Rate Limiting
-
-express-rate-limit
-
-Uploads
-
-Multer
-
-Email
-
-Nodemailer
-
-Storage
-
-Local filesystem / S3-compatible provider
-
-📂 Repository Structure
-
-PRIVATE-KERNEL/
-│
-├── frontend/
-│   ├── public/
-│   └── src/
-│       ├── components/
-│       │   ├── chat/
-│       │   ├── common/
-│       │   ├── notifications/
-│       │   ├── profile/
-│       │   └── settings/
-│       │
-│       ├── context/
-│       │   ├── AuthContext.tsx
-│       │   ├── ChatContext.tsx
-│       │   └── ThemeContext.tsx
-│       │
-│       ├── pages/
-│       │   ├── ChatApp.tsx
-│       │   ├── Login.tsx
-│       │   ├── Register.tsx
-│       │   ├── ForgotPassword.tsx
-│       │   ├── ResetPassword.tsx
-│       │   └── VerifyEmail.tsx
-│       │
-│       ├── services/
-│       │   ├── api.ts
-│       │   └── socket.ts
-│       │
-│       └── types/
-│
-├── backend/
-│   └── src/
-│       ├── config/
-│       ├── controllers/
-│       ├── middleware/
-│       ├── models/
-│       ├── routes/
-│       ├── services/
-│       ├── sockets/
-│       └── utils/
-│
-├── scripts/
-├── .env.example
-├── .gitignore
-├── package.json
-├── package-lock.json
-└── README.md
-
-🗄️ Data Layer
-
-The application uses MongoDB through Mongoose.
-
-Main Models
-
-User
-Session
-Conversation
-ConversationMember
-Message
-Notification
-AuditLog
-BlockedUser
-
-Source of Truth
-
-MongoDB
-   ↓
-Backend API / Socket.IO
-   ↓
-Frontend State
-   ↓
-UI
-
-The frontend must never invent persistent application state.
-
-⚡ Realtime Communication
-
-Socket.IO is used for realtime communication.
-
-User A
-  │
-  │ send message
-  ▼
-Socket.IO
-  │
-  ▼
-Backend authorization
-  │
-  ▼
-Conversation membership check
-  │
-  ├──────────────► MongoDB
-  │
-  ▼
-Connected members
-  │
-  ├──► User B
-  ├──► User C
-  └──► User D
-
-Important
-
-Realtime events must be authenticated and authorized by the backend.
-
-A client must not be able to join or publish to a protected conversation merely by knowing its ID.
-
-👤 User & Conversation Model
-
-User
- │
- ├── Sessions
- │
- ├── Notifications
- │
- ├── Blocked Users
- │
- └── Conversation Membership
-          │
-          ▼
-      Conversation
-          │
-          ├── Members
-          └── Messages
-
-For direct messaging, conversation membership is the source of truth.
-
-The system should not assume that a user can message another user simply because they appear in the UI.
-
-🧪 Development Workflow
-
-1. Clone
-
-git clone <repository-url>
+### 1. Clone & Install
+```bash
+git clone https://github.com/SIVASHANKAR-CODE/PRIVATE-KERNEL.git
 cd PRIVATE-KERNEL
-
-2. Install
-
 npm install
+```
 
-3. Configure Environment
-
-Create:
-
-.env
-
-from:
-
-.env.example
-
-Example:
-
+### 2. Configure Environment
+Create a `.env` file in the project root (see `.env.example` for the full list):
+```env
 PORT=5000
-MONGODB_URI=<your-mongodb-connection-string>
-JWT_SECRET=<long-random-secret>
-
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
 VITE_API_URL=http://localhost:5000
 
 STORAGE_PROVIDER=local
@@ -640,348 +90,60 @@ SMTP_HOST=
 SMTP_PORT=587
 SMTP_USER=
 SMTP_PASS=
+```
+> ⚠️ Never commit real secrets. Keep `.env` out of version control (already covered by `.gitignore`) and only put placeholder values in `.env.example`.
 
-Never commit real credentials to GitHub.
-
-4. Start Development
-
+### 3. Start Development
+```bash
 npm run dev
-
-The root workspace starts:
-
-Frontend → Vite
-Backend  → Express + Socket.IO
-
-Typical development URLs:
-
-Frontend
-http://localhost:5173
-
-Backend
-http://localhost:5000
-
-📜 Available Scripts
-
-Command
-
-Purpose
-
-npm run dev
-
-Start frontend and backend development servers
-
-npm run dev:frontend
-
-Start only the frontend
-
-npm run dev:backend
-
-Start only the backend
-
-npm run build
-
-Build all workspaces
-
-npm run build --workspace=frontend
-
-Build frontend
-
-npm run build --workspace=backend
-
-Build backend
-
-npm run test --workspace=backend
-
-Run backend tests
-
-🧪 Quality & Testing
-
-Before merging a feature:
-
-Feature
-  ↓
-Type-check
-  ↓
-Functional test
-  ↓
-Realtime test (if applicable)
-  ↓
-Security/authorization test
-  ↓
-Responsive UI test
-  ↓
-Pull Request
-  ↓
-Review
-  ↓
-Merge
-
-Critical Test Areas
-
-Registration
-
-Login
-
-Session handling
-
-Protected routes
-
-Direct messaging
-
-Group messaging
-
-Conversation membership
-
-File upload
-
-Notifications
-
-Password reset
-
-User blocking
-
-Socket authorization
-
-Mobile responsiveness
-
-🔐 Production Security Checklist
-
-[ ] HTTPS enabled
-[ ] Strong JWT secret
-[ ] Secure MongoDB credentials
-[ ] Restricted CORS
-[ ] Rate limiting enabled
-[ ] Helmet enabled
-[ ] Input validation enabled
-[ ] Private file access protected
-[ ] Upload size/type validation
-[ ] Secrets removed from source code
-[ ] .env excluded from Git
-[ ] Sensitive logs removed
-[ ] Session revocation tested
-[ ] Socket authorization tested
-[ ] Production storage configured
-[ ] Error handling reviewed
-
-🤝 GitHub Collaboration
-
-PRIVATE KERNEL CONNECT is intended to be developed using a controlled Git workflow.
-
-Branch Model
-
-main
- │
- ├── feature/chat
- ├── feature/ui
- ├── feature/auth
- ├── feature/files
- └── feature/research
-
-Recommended Workflow
-
-git checkout main
-git pull origin main
-
-git checkout -b feature/<your-feature>
-
-# Make changes
-
-git add .
-git commit -m "Add <feature>"
-git push -u origin feature/<your-feature>
-
-Then create a Pull Request into main.
-
-Team Rule
-
-Do not directly push unfinished work to main.
-
-Every significant feature should be reviewed before merging.
-
-🧑‍💻 Contribution Rules
-
-Before coding
-
-Read the existing implementation
-
-Understand the current architecture
-
-Check existing components/services
-
-Avoid duplicating functionality
-
-Confirm the feature belongs to the product scope
-
-While coding
-
-Use TypeScript
-
-Reuse existing components
-
-Keep frontend/backend contracts synchronized
-
-Validate on the server
-
-Keep authorization server-side
-
-Handle loading, error and empty states
-
-Maintain responsive behavior
-
-Keep UI consistent
-
-Never
-
-Hardcode fake users
-
-Hardcode fake messages
-
-Fake online status
-
-Fake notification counts
-
-Fake statistics
-
-Store plaintext passwords
-
-Commit credentials
-
-Bypass backend authorization
-
-Add random dependencies
-
-Copy another company's branding
-
-🤖 AI Development Guidelines
-
-If an AI coding assistant is used with this repository, it must follow these rules:
-
-Read the existing repository before changing code.
-
-Preserve working functionality.
-
-Do not invent APIs that do not exist.
-
-Do not invent database records.
-
-Do not use fake data to hide missing backend functionality.
-
-Keep authentication server-side.
-
-Keep authorization server-side.
-
-Keep realtime socket authorization server-side.
-
-Reuse the existing design system.
-
-Do not convert the interface into a generic AI dashboard.
-
-Do not add unapproved product features.
-
-Test affected flows after changes.
-
-Report what was actually implemented.
-
-Never claim a feature is complete if the backend, database, or integration is missing.
-
-AI Source-of-Truth Rule
-
-Existing Repository
-       ↓
-Understand Architecture
-       ↓
-Plan Change
-       ↓
-Implement
-       ↓
-Test
-       ↓
-Review
-       ↓
-Commit
-
-📌 Product Standards
-
-Every feature added to PRIVATE KERNEL CONNECT should satisfy:
-
-Standard
-
-Requirement
-
-Privacy
-
-Only authorized users can access private data
-
-Security
-
-Protected operations validated server-side
-
-UX
-
-Clear and predictable interaction
-
-Performance
-
-Avoid unnecessary requests and rendering
-
-Accessibility
-
-Maintain readable contrast and usable controls
-
-Responsiveness
-
-Desktop + mobile support
-
-Reliability
-
-Handle errors and reconnect states
-
-Maintainability
-
-Keep modules organized and reusable
-
-Authenticity
-
-Use real application data
-
-Design
-
-Maintain PRIVATE KERNEL identity
-
-🚀 Vision
-
-PRIVATE KERNEL CONNECT is not intended to be another generic chat clone.
-
-The long-term goal is to build a private, controlled, professional communication environment for the PRIVATE KERNEL team.
-
-PRIVATE KERNEL
-      │
-      ▼
-PRIVATE KERNEL CONNECT
-      │
-      ├── Secure Communication
-      ├── Team Collaboration
-      ├── Realtime Messaging
-      ├── File Sharing
-      ├── Notifications
-      ├── User Management
-      └── Professional Workspace
-
-🔒 Project Status
-
-Private Internal Project
-
-Organization: PRIVATE KERNEL
-Product: PRIVATE KERNEL CONNECT
-Repository: Private
-Primary Owner: SIVASHANKAR S
-
-📄 License
-
-This is a private project belonging to PRIVATE KERNEL.
-
-Unauthorized redistribution, commercial reuse, or publication of private project credentials/configuration is not permitted.
-
-PRIVATE KERNEL
-
-Build private. Build reliable. Build with purpose.
+```
+This runs the backend (Express + Socket.IO) and frontend (Vite) concurrently.
+
+### 4. Open the App
+Visit **http://localhost:5173** in your browser.
+
+---
+
+## 📁 Project Structure
+
+```
+PRIVATE-KERNEL/
+├── backend/
+│   └── src/
+│       ├── config/          # Environment & app config
+│       ├── controllers/     # Route handlers (auth, chat, groups, uploads...)
+│       ├── middleware/      # Auth guard, validation
+│       ├── models/          # Mongoose schemas (User, Message, Conversation...)
+│       ├── routes/          # Express route definitions
+│       ├── services/        # DB, mailer, storage
+│       ├── sockets/         # Socket.IO chat events
+│       └── server.ts        # App entrypoint
+├── frontend/
+│   └── src/
+│       ├── components/      # Chat, common, notifications, profile, settings UI
+│       ├── context/         # Auth, Chat, Theme providers
+│       ├── pages/           # Login, Register, ChatApp, password flows
+│       ├── services/        # API + socket clients
+│       └── types/           # Shared TypeScript types
+├── .env.example
+└── package.json              # npm workspaces (frontend + backend)
+```
+
+---
+
+## 📜 Scripts
+
+| Command           | Description                                   |
+|--------------------|-----------------------------------------------|
+| `npm run dev`      | Runs backend + frontend in watch mode         |
+| `npm run build`    | Builds production assets for both workspaces  |
+
+---
+
+## 🤝 Contributing
+
+Issues and pull requests are welcome. Please open an issue first to discuss any major changes.
+
+## 📄 License
+
+This project is currently unlicensed — all rights reserved by the author unless a license file is added.
